@@ -1,4 +1,4 @@
-name: Seeed reComputer_R100x buildroot
+name: Seeed reComputer_R110x buildroot
 on:
   workflow_dispatch:
   schedule:
