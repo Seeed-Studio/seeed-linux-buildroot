@@ -1,0 +1,56 @@
+name: build all images
+on:
+  workflow_dispatch:
+
+env:
+  TZ: Asia/Shanghai
+
+jobs:
+  Build-all-images:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set Date
+        id: set-date
+        run: |
+          echo "DATE=$(date +'%Y-%m-%d-%H-%M')" >> $GITHUB_ENV
+
+      - name: Create release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: "${{ env.DATE }}"
+          draft: false
+
+      - name: build reTerminal image
+        uses: benc-uk/workflow-dispatch@v1.1
+        with:
+          workflow: build Seeed buildroot image
+          token: ${{ secrets.GITHUB_TOKEN }}
+          inputs: >-
+            {
+                "dev_name": "reTerminal-64", 
+                "release_url": "${{ steps.create_release.outputs.upload_url }}"
+            }
+
+      - name: Seeed reComputer_R100x buildroot
+        uses: benc-uk/workflow-dispatch@v1.1
+        with:
+          workflow: build Seeed buildroot image
+          token: ${{ secrets.GITHUB_TOKEN }}
+          inputs: >-
+            {
+                "dev_name": "reComputer-R100x-64", 
+                "release_url": "${{ steps.create_release.outputs.upload_url }}"
+            }
+      - name: Seeed reComputer_R110x buildroot
+        uses: benc-uk/workflow-dispatch@v1.1
+        with:
+          workflow: build Seeed buildroot image
+          token: ${{ secrets.GITHUB_TOKEN }}
+          inputs: >-
+            {
+                "dev_name": "reComputer-R110x-64", 
+                "release_url": "${{ steps.create_release.outputs.upload_url }}"
+            }
