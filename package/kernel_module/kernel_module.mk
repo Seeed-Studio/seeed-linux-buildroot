@@ -1,4 +1,4 @@
-KERNEL_MODULE_VERSION = d20b05b1328b587bd9cd085895b16bfbba804f5c 
+KERNEL_MODULE_VERSION = e9d88ebad195561a0b788d36f59bc67a7bcc697b
 KERNEL_MODULE_SITE = https://github.com/Seeed-Studio/seeed-linux-dtoverlays.git
 KERNEL_MODULE_SITE_METHOD = git
 KERNEL_MODULE_INSTALL_STAGING = NO
@@ -22,6 +22,9 @@ endef
 
 define KERNEL_MODULE_INSTALL_TARGET_CMDS
 	$(INSTALL) -D -m 0644 $(@D)/overlays/rpi/$(BR2_DEV_NAME)-overlay.dtbo $(BINARIES_DIR)/rpi-firmware/overlays/$(BR2_DEV_NAME).dtbo
+	$(if $(filter "reComputer-R2x",$(BR2_DEV_NAME)), \
+        $(INSTALL) -D -m 0644 $(@D)/overlays/rpi/reComputer-R21-overlay.dtbo $(BINARIES_DIR)/rpi-firmware/overlays/reComputer-R21.dtbo, \
+    )
 	mkdir -p $(TARGET_DIR)/lib/modules/$(LINUX_VERSION_PROBED)/extra/
 	$(MAKE) ARCH="$(KERNEL_ARCH)" CROSS_COMPILE="$(TARGET_CROSS)" KBUILD="$(LINUX_DIR)" KO_DIR="$(TARGET_DIR)/lib/modules/$(LINUX_VERSION_PROBED)/extra/" -C $(@D) install_rpi
 	$(HOST_DIR)/sbin/depmod -a -b $(TARGET_DIR) $(LINUX_VERSION_PROBED)

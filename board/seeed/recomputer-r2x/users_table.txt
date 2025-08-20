@@ -1,0 +1,2 @@
+# <username> <uid> <group> <gid> <password> <home> <shell> <groups> <comment>
+recomputer -1 bar -1 =12345678 /home/recomputer /bin/sh alpha,bravo reComputer user
