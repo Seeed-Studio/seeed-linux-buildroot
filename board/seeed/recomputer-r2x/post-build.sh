@@ -3,6 +3,8 @@
 set -u
 set -e
 
+SERVICE_FILE="r21_board_detect.service"
+
 # Add a console on tty1
 if [ -e ${TARGET_DIR}/etc/inittab ]; then
     grep -qE '^tty1::' ${TARGET_DIR}/etc/inittab || \
@@ -15,6 +17,7 @@ elif [ -d ${TARGET_DIR}/etc/systemd ]; then
        "${TARGET_DIR}/etc/systemd/system/getty.target.wants/getty@tty1.service"
 fi
 
+systemctl --root=${TARGET_DIR} enable ${SERVICE_FILE}
 
 #modify the config.txt
 CFG_PATH=${BINARIES_DIR}/rpi-firmware/config.txt

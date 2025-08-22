@@ -7,6 +7,7 @@ BR2_GLOBAL_PATCH_DIR="board/seeed/recomputer-r2x/patches"
 BR2_DOWNLOAD_FORCE_CHECK_HASHES=y
 BR2_SYSTEM_DHCP="eth0"
 BR2_ROOTFS_USERS_TABLES="board/seeed/recomputer-r2x/users_table.txt"
+BR2_ROOTFS_OVERLAY="board/seeed/recomputer-r2x/rootfs_overlay/"
 BR2_ROOTFS_POST_BUILD_SCRIPT="board/seeed/recomputer-r2x/post-build.sh"
 BR2_ROOTFS_POST_IMAGE_SCRIPT="board/seeed/recomputer-r2x/post-image.sh"
 BR2_DEV_NAME="reComputer-R2x"
