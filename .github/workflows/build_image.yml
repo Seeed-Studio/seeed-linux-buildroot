@@ -14,6 +14,7 @@ on:
           - reComputer-R100x-64
           - reComputer-R110x-32
           - reComputer-R110x-64
+          - reComputer-R2x
           - reTerminal-32
           - reTerminal-64
       release_url:
