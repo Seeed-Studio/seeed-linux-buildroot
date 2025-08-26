@@ -27,7 +27,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Initialization environment
@@ -49,7 +49,7 @@ jobs:
           sudo apt-get remove -y '^dotnet-.*'
           sudo apt-get remove -y '^llvm-.*'
           sudo apt-get remove -y 'php.*'
-          sudo apt-get remove -y azure-cli google-cloud-sdk hhvm google-chrome-stable firefox powershell
+          sudo apt-get remove -y azure-cli google-cloud-sdk google-chrome-stable firefox powershell
           sudo apt-get autoremove -y >/dev/null 2>&1
           sudo apt-get clean
           sudo apt-get autoremove -y >/dev/null 2>&1
@@ -71,14 +71,14 @@ jobs:
         run: |
           sudo -E apt-get -qq update
           sudo -E apt-get install sed make binutils build-essential gcc g++ bash patch \
-          gzip bzip2 perl tar cpio unzip rsync file bc wget python cvs git \
+          gzip bzip2 perl tar cpio unzip rsync file bc wget python3 cvs git \
           mercurial subversion
           
       - name: Checkout Buildroot sources
         run: git clone --depth=1 -b master https://github.com/Seeed-Studio/seeed-linux-buildroot.git
 
       - name: Seeed buildroot cache
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         env:
           cache-name: cache-download-files
         with:
@@ -98,7 +98,7 @@ jobs:
       - name: Build
         run: |
           cd ${{ github.workspace }}/seeed-linux-buildroot/
-          sudo make
+          make
 
       - name: Pack
         run: |
@@ -120,5 +120,5 @@ jobs:
         with:
           upload_url: ${{ inputs.release_url }}
           asset_path: ${{env.PACKAGE}}
-          asset_name: buildroot-${{ inputs.dev_name }}.zip
-          asset_content_type: application/zip
+          asset_name: buildroot-${{ inputs.dev_name }}.tar.gz
+          asset_content_type: application/gzip
