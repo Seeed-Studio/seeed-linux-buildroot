@@ -1,0 +1,4 @@
+config BR2_PACKAGE_HAILORT_DRIVER
+    bool "hailo driver"
+    help
+      Build and install Hailo driver.
