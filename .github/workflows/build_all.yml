@@ -65,3 +65,14 @@ jobs:
                 "dev_name": "reComputer-R2x",
                 "release_url": "${{ steps.create_release.outputs.upload_url }}"
             }
+
+      - name: Seeed reComputer_R22 buildroot
+        uses: benc-uk/workflow-dispatch@v1.1
+        with:
+          workflow: build Seeed buildroot image
+          token: ${{ secrets.GITHUB_TOKEN }}
+          inputs: >-
+            {
+                "dev_name": "reComputer-R22",
+                "release_url": "${{ steps.create_release.outputs.upload_url }}"
+            }
