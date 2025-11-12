@@ -21,7 +21,7 @@ systemctl --root=${TARGET_DIR} enable ${SERVICE_FILE}
 
 #modify the config.txt
 CFG_PATH=${BINARIES_DIR}/rpi-firmware/config.txt
-grep -q "^dtoverlay=reComputer-R2x$" $CFG_PATH || echo "dtoverlay=reComputer-R2x" >> $CFG_PATH
+grep -q "^dtoverlay=reComputer-R2x-base$" $CFG_PATH || echo "dtoverlay=reComputer-R2x-base" >> $CFG_PATH
 
 #create dir /boot/
 if [ ! -d "${TARGET_DIR}/boot/" ]; then
